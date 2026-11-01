@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Kalam:wght@700&family=Patrick+Hand&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens — space-separated RGB so Tailwind opacity modifiers work.
+   Light = P2N logo palette on white. Dark = near-black with the logo blue lifted for contrast. */
+:root {
+  --c-void: 255 255 255;
+  --c-offwhite: 15 15 15;
+  --c-zincline: 203 211 223;
+  --c-acid: 8 104 230;
+  --c-mist: 244 247 251;
+  color-scheme: light;
+}
+.dark {
+  --c-void: 9 9 11;
+  --c-offwhite: 250 250 250;
+  --c-zincline: 63 63 70;
+  --c-acid: 59 140 255;
+  --c-mist: 17 17 20;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-void text-offwhite font-display antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  :focus-visible {
+    outline: 2px solid #017AFB;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Kinetic display headline: massive, tight, uppercase */
+  .kinetic-headline {
+    @apply font-display font-semibold uppercase tracking-[-0.03em] leading-[0.88];
+  }
+
+  /* Hide scrollbar while keeping scroll/swipe (image sliders) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Wobbly organic border for paper/academy elements */
+  .wobble-1 {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  .wobble-2 {
+    border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+  }
+
+  /* Tape strip overlay */
+  .tape::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 90px;
+    height: 26px;
+    background: rgba(220, 235, 255, 0.9);
+    border: 1px solid rgba(17, 17, 17, 0.15);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Top-down illustration of a city intersection where an AI camera detects and tracks vehicles">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#3F3F46" stroke-opacity="0.35" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="cone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2F8CFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2F8CFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background + blueprint grid -->
+  <rect width="800" height="600" fill="#09090B"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+
+  <!-- roads -->
+  <rect x="0" y="240" width="800" height="120" fill="#131316"/>
+  <rect x="340" y="0" width="120" height="600" fill="#131316"/>
+  <g stroke="#3F3F46" stroke-width="2">
+    <path d="M0 240H340M460 240H800M0 360H340M460 360H800"/>
+    <path d="M340 0V240M340 360V600M460 0V240M460 360V600"/>
+  </g>
+  <!-- lane dashes -->
+  <g stroke="#52525B" stroke-width="2" stroke-dasharray="16 14" fill="none">
+    <path d="M0 300H340M460 300H800"/>
+    <path d="M400 0V240M400 360V600"/>
+  </g>
+  <!-- stop lines + crosswalk hints -->
+  <g stroke="#FAFAFA" stroke-opacity="0.75" stroke-width="4">
+    <path d="M344 226H396M404 374H456"/>
+    <path d="M326 244V296M474 304V356"/>
+  </g>
+  <g stroke="#FAFAFA" stroke-opacity="0.18" stroke-width="6" stroke-dasharray="6 8">
+    <path d="M300 240V360M500 240V360M340 200H460M340 400H460"/>
+  </g>
+
+  <!-- camera + detection cone -->
+  <polygon points="92,78 380,260 250,330" fill="url(#cone)"/>
+  <g>
+    <rect x="62" y="52" width="46" height="34" fill="#09090B" stroke="#2F8CFF" stroke-width="3"/>
+    <circle cx="94" cy="69" r="9" fill="#2F8CFF"/>
+    <circle cx="94" cy="69" r="4" fill="#09090B"/>
+    <path d="M85 86V108" stroke="#2F8CFF" stroke-width="3"/>
+  </g>
+
+  <!-- signal heads at the corners -->
+  <g>
+    <rect x="304" y="204" width="22" height="22" fill="#09090B" stroke="#3F3F46" stroke-width="2"/>
+    <circle cx="315" cy="215" r="6" fill="#FF4D4D"/>
+    <rect x="474" y="374" width="22" height="22" fill="#09090B" stroke="#3F3F46" stroke-width="2"/>
+    <circle cx="485" cy="385" r="6" fill="#2F8CFF"/>
+    <rect x="474" y="204" width="22" height="22" fill="#09090B" stroke="#3F3F46" stroke-width="2"/>
+    <circle cx="485" cy="215" r="6" fill="#FF4D4D"/>
+    <rect x="304" y="374" width="22" height="22" fill="#09090B" stroke="#3F3F46" stroke-width="2"/>
+    <circle cx="315" cy="385" r="6" fill="#2F8CFF"/>
+  </g>
+
+  <!-- vehicles: vertical road -->
+  <g fill="#A1A1AA">
+    <rect x="356" y="96" width="28" height="54" rx="3"/>
+    <rect x="416" y="150" width="28" height="54" rx="3" fill="#E4E4E7"/>
+    <rect x="356" y="430" width="28" height="54" rx="3" fill="#E4E4E7"/>
+    <rect x="416" y="474" width="28" height="54" rx="3"/>
+    <rect x="356" y="518" width="28" height="54" rx="3" fill="#71717A"/>
+  </g>
+  <!-- vehicles: horizontal road -->
+  <g fill="#A1A1AA">
+    <rect x="70" y="256" width="54" height="28" rx="3" fill="#E4E4E7"/>
+    <rect x="164" y="316" width="54" height="28" rx="3"/>
+    <rect x="236" y="256" width="54" height="28" rx="3" fill="#71717A"/>
+    <rect x="548" y="316" width="54" height="28" rx="3" fill="#E4E4E7"/>
+    <rect x="650" y="256" width="54" height="28" rx="3"/>
+  </g>
+
+  <!-- detection boxes (corner brackets) -->
+  <g fill="none" stroke="#2F8CFF" stroke-width="3" stroke-linecap="square">
+    <!-- vertical road -->
+    <path d="M350 106V90H366M374 90H390V106M350 146V160H366M374 160H390V146"/>
+    <path d="M410 160V144H426M434 144H450V160M410 200V214H426M434 214H450V200"/>
+    <path d="M350 440V424H366M374 424H390V440M350 480V494H366M374 494H390V480"/>
+    <!-- horizontal road -->
+    <path d="M64 262V250H80M114 250H130V262M64 278V290H80M114 290H130V278"/>
+    <path d="M158 322V310H174M208 310H224V322M158 338V350H174M208 350H224V338"/>
+    <path d="M542 322V310H558M592 310H608V322M542 338V350H558M592 350H608V338"/>
+    <path d="M644 262V250H660M694 250H710V262M644 278V290H660M694 290H710V278"/>
+  </g>
+  <!-- flagged vehicle (rule violation) in red -->
+  <g fill="none" stroke="#FF4D4D" stroke-width="3" stroke-linecap="square">
+    <path d="M230 262V250H246M280 250H296V262M230 278V290H246M280 290H296V278"/>
+  </g>
+  <rect x="226" y="236" width="26" height="8" fill="#FF4D4D"/>
+
+  <!-- tracking tags above boxes -->
+  <g fill="#2F8CFF">
+    <rect x="350" y="82" width="22" height="6"/>
+    <rect x="410" y="136" width="22" height="6"/>
+    <rect x="350" y="416" width="22" height="6"/>
+    <rect x="64" y="242" width="22" height="6"/>
+    <rect x="158" y="302" width="22" height="6"/>
+    <rect x="542" y="302" width="22" height="6"/>
+    <rect x="644" y="242" width="22" height="6"/>
+  </g>
+
+  <!-- predicted trajectories -->
+  <g stroke="#2F8CFF" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="4 6" fill="none">
+    <path d="M370 150V236"/>
+    <path d="M430 204V236"/>
+    <path d="M124 270H226"/>
+    <path d="M218 330H330"/>
+    <path d="M548 330H470"/>
+    <path d="M704 270H620" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- HUD frame -->
+  <g fill="none" stroke="#2F8CFF" stroke-width="3">
+    <path d="M20 60V20H60M740 20H780V60M20 540V580H60M740 580H780V540"/>
+  </g>
+  <circle cx="764" cy="44" r="6" fill="#FF4D4D"/>
+</svg>

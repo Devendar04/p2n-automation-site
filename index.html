@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <script>
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var t = localStorage.getItem("p2n-theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.classList.toggle("dark", t === "dark");
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute("content", t === "dark" ? "#09090B" : "#FFFFFF");
+        } catch (e) {}
+      })();
+    </script>
+    <title>P2N Automation — Enterprise Tech, Trained Talent</title>
+    <meta
+      name="description"
+      content="B2B software, cloud, and hardware delivery, plus a hands-on tech academy and internships for high school and college students."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Kalam:wght@700&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "P2N Automation",
+        "alternateName": "Physical to Network Automation",
+        "logo": "/logo.png",
+        "email": "p2nautomation@gmail.com",
+        "telephone": "+91-6367398035",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "near Grahmin Bank, Nakoda Nagar",
+          "addressLocality": "Udaipur",
+          "addressRegion": "Rajasthan",
+          "addressCountry": "IN"
+        },
+        "founder": [
+          { "@type": "Person", "name": "Pratap Singh", "jobTitle": "Founder / CEO" },
+          { "@type": "Person", "name": "Rizwan Shah", "jobTitle": "Co-Founder / CTO" }
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/p2n-automation/",
+          "https://www.instagram.com/p2n_automation/"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
