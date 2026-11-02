@@ -76,7 +76,7 @@ export default function BlogPost() {
                     <Link
                       key={o.slug}
                       to={`/blog/${o.slug}`}
-                      className="group border-2 border-zincline bg-void p-6 transition-shadow hover:shadow-[6px_6px_0px_0px_#017AFB]"
+                      className="group border-2 border-zincline bg-void p-6 transition-shadow hover:shadow-[6px_6px_0px_0px_#017AFB] inview:shadow-[6px_6px_0px_0px_#017AFB]"
                     >
                       <span className="text-xs font-semibold uppercase text-acid">{o.tag}</span>
                       <h3 className="mt-2 font-display font-semibold uppercase text-offwhite text-lg leading-snug">{o.title}</h3>

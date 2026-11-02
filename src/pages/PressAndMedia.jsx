@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import FloatingActions from "../components/FloatingActions";
 import QuickContactModal from "../components/QuickContactModal";
-import ImageSlider from "../components/ImageSlider";
+import ImageCarousel from "../components/ImageCarousel";
 import { PRESS_ITEMS } from "../data/siteContent";
 
 const fadeUp = {
@@ -52,12 +52,7 @@ function LeadFeature({ item }) {
       {...reveal}
       className="scroll-mt-24 grid lg:grid-cols-2 border-2 border-zincline bg-void"
     >
-      <ImageSlider
-        images={item.images}
-        label={`${item.event} photos`}
-        aspect="aspect-[4/3] lg:aspect-auto lg:min-h-[460px]"
-        eager
-      />
+      <ImageCarousel images={item.images} label={`${item.event} photos`} eager />
       <div className="p-7 sm:p-10 flex flex-col justify-center gap-5 border-t-2 lg:border-t-0 lg:border-l-2 border-zincline">
         <EventChip icon={Trophy}>{item.event}</EventChip>
         <ItemHeading
@@ -81,9 +76,9 @@ function PressCard({ item, index }) {
       id={item.id}
       custom={index}
       {...reveal}
-      className="scroll-mt-24 border-2 border-zincline bg-void flex flex-col transition-shadow duration-200 hover:shadow-[6px_6px_0px_0px_#017AFB]"
+      className="scroll-mt-24 border-2 border-zincline bg-void flex flex-col transition-shadow duration-200 hover:shadow-[6px_6px_0px_0px_#017AFB] inview:shadow-[6px_6px_0px_0px_#017AFB]"
     >
-      <ImageSlider images={item.images} label={`${item.event} photos`} />
+      <ImageCarousel images={item.images} label={`${item.event} photos`} />
       <div className="p-6 flex flex-col gap-3 flex-1 border-t-2 border-zincline">
         <EventChip>{item.event}</EventChip>
         <ItemHeading
@@ -120,7 +115,7 @@ function PortraitFeature({ item }) {
         <p className="text-offwhite/70 leading-relaxed normal-case max-w-xl">{item.description}</p>
       </div>
       <div className="border-t-2 lg:border-t-0 lg:border-l-2 border-zincline">
-        <ImageSlider
+        <ImageCarousel
           images={item.images}
           label={`${item.event} press clipping`}
           aspect="aspect-[9/16]"

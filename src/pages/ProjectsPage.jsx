@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import FloatingActions from "../components/FloatingActions";
 import QuickContactModal from "../components/QuickContactModal";
-import ImageSlider from "../components/ImageSlider";
+import ImageCarousel from "../components/ImageCarousel";
 import { PROJECTS, PROJECT_FILTERS as FILTERS } from "../data/siteContent";
 
 const TICKER_ITEMS = [
@@ -73,12 +73,12 @@ const TESTIMONIALS = [
 
 function ProjectCard({ project }) {
   return (
-    <article id={project.id} className="relative scroll-mt-24 -rotate-1 hover:rotate-0 transition-transform">
+    <article id={project.id} className="relative scroll-mt-24 -rotate-1 hover:rotate-0 inview:rotate-0 transition-transform">
       {/* tape strip sits outside the clipped card so it isn't cut off */}
       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-24 h-6 bg-postit/80 border border-graphite/20 shadow-sm -rotate-2 z-10" />
 
       <div className="wobble-1 bg-[#F7FAFF] border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] overflow-hidden h-full flex flex-col">
-        <ImageSlider
+        <ImageCarousel
           images={project.images}
           variant="paper"
           label={`${project.title} images`}

@@ -1,3 +1,5 @@
+import plugin from "tailwindcss/plugin";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
@@ -54,5 +56,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Touch screens have no hover. A small script (src/lib/scrollHover.jsx) sets
+    // data-inview="true" on the card that is crossing the middle of the screen, and
+    // these variants let a card reuse its hover styling for that moment:
+    //   inview:bg-acid        → same as hover:bg-acid, but while the card is in view
+    //   group-inview:text-void → same as group-hover:text-void
+    plugin(({ addVariant }) => {
+      addVariant("inview", '&[data-inview="true"]');
+      addVariant("group-inview", ':merge(.group)[data-inview="true"] &');
+    }),
+  ],
 };

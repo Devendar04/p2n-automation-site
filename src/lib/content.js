@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
-import { BLOG_POSTS, SERVICE_PAGES } from "../data/aiContent";
+import { BLOG_POSTS, SERVICE_PAGES, STUDENT_CAPSTONES } from "../data/aiContent";
+import { PROJECTS } from "../data/siteContent";
 
 /**
  * Content loaders for the Blog and the Service pages.
@@ -105,4 +106,64 @@ export function useService(slug) {
     all: services ?? [],
     loading: services === null,
   };
+}
+
+/* ------------------------------------------------------------------ */
+/* WORKS page (table `projects`)                                       */
+/* ------------------------------------------------------------------ */
+
+// Real projects from the company brief → "Enterprise" tab
+const WORK_CATEGORY = {
+  itms: "AI & Automation",
+  "driver-verification-device": "AI & Automation",
+  "ai-3d-hologram": "AI & Automation",
+  "indian-army-drone-arena": "Hardware/IoT",
+  "industrial-3d-design": "Hardware/IoT",
+};
+
+export const seedEnterpriseWorks = PROJECTS.map((p) => ({
+  id: `seed-${p.id}`,
+  view_type: "client",
+  category: WORK_CATEGORY[p.id] ?? "Software",
+  title: p.title,
+  solution_delivered: p.description,
+  thumbnail_url: p.images[0].src,
+  thumbnail_alt: p.images[0].alt,
+  tech_stack: [],
+  case_study_url: `/projects#${p.id}`,
+  __seed: true,
+}));
+
+// AI starter entries → "Student Capstones" tab
+export const seedStudentWorks = STUDENT_CAPSTONES.map((c) => ({
+  id: `seed-${c.slug}`,
+  view_type: "student",
+  hiring_badge: false,
+  ...c,
+  __seed: true,
+}));
+
+async function loadWorks() {
+  let rows = [];
+  try {
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (!error && data) rows = data;
+  } catch {
+    /* fall through to seed */
+  }
+  // Each tab uses the database as soon as it has at least one real project;
+  // until then it shows its starter entries.
+  const pick = (view, seed) => {
+    const mine = rows.filter((r) => r.view_type === view);
+    return mine.length ? mine : seed;
+  };
+  return [...pick("client", seedEnterpriseWorks), ...pick("student", seedStudentWorks)];
+}
+
+export function useWorks() {
+  const works = useLoaded(loadWorks);
+  return { projects: works ?? [], loading: works === null };
 }

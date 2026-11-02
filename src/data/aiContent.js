@@ -421,3 +421,52 @@ Once these five feel comfortable, topics such as real-time operating systems, lo
     is_placeholder: true,
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/* WORKS → "Student Capstone Innovations" starter entries              */
+/* ------------------------------------------------------------------ */
+/* Generic, typical capstone ideas drafted by AI so the tab is not empty.
+   They are NOT real student projects: replace them from Admin → Projects
+   (add a real "student" project and these starters disappear automatically). */
+export const STUDENT_CAPSTONES = [
+  {
+    slug: "face-attendance",
+    title: "Face-Recognition Attendance",
+    category: "AI & Automation",
+    solution_delivered:
+      "A classroom attendance system that recognises enrolled students from a camera feed and records who is present, replacing the paper register.",
+    tech_stack: ["Python", "OpenCV", "SQLite"],
+  },
+  {
+    slug: "soil-moisture-node",
+    title: "Smart Soil Moisture Node",
+    category: "Hardware/IoT",
+    solution_delivered:
+      "A battery-powered sensor node that measures soil moisture and reports it to a simple dashboard, helping schedule watering.",
+    tech_stack: ["ESP32", "MQTT", "React"],
+  },
+  {
+    slug: "campus-bus-tracker",
+    title: "Campus Bus Tracker",
+    category: "Software",
+    solution_delivered:
+      "A web app that shows the live position of college buses on a map, so students know when to be at the stop.",
+    tech_stack: ["React", "Node.js", "PostgreSQL"],
+  },
+  {
+    slug: "gesture-robot-car",
+    title: "Gesture-Controlled Robot Car",
+    category: "Hardware/IoT",
+    solution_delivered:
+      "A small robot car steered by hand movements, built to teach sensor reading, wireless communication and motor control.",
+    tech_stack: ["Arduino", "MPU6050", "nRF24L01"],
+  },
+  {
+    slug: "shop-inventory",
+    title: "Inventory Tracker for Small Shops",
+    category: "Software",
+    solution_delivered:
+      "A lightweight stock-keeping tool for small shops that tracks items, flags low stock and exports a simple weekly report.",
+    tech_stack: ["React", "Supabase"],
+  },
+];

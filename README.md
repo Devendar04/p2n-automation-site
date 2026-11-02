@@ -57,6 +57,28 @@ theme before first paint so there is no flash. The logo has a dark variant
    `- bullet`, `**bold**`. On service pages, list fields use one line per item
    (`Title | Description`).
 
+## Images, Works page and mobile effects
+
+- **Auto-scrolling image carousels** (`components/ImageCarousel.jsx`): press and
+  project photos slide horizontally by themselves and loop. Autoplay pauses on
+  hover, keyboard focus, after a touch, when off-screen and when the tab is
+  hidden, and is off for visitors who prefer reduced motion. Frames are a fixed
+  size (taller on phones so photos are big) and photos are never cropped.
+  Swipe, arrows, dots and ←/→ keys still work. Change the speed with the
+  `interval` prop (ms).
+- **Works page** (`/works`): real projects from the company brief fill the
+  Enterprise tab; the Student tab starts with AI-generated sample capstones
+  (`STUDENT_CAPSTONES` in `src/data/aiContent.js`). Add real rows in
+  Admin → Projects: a tab switches to the database as soon as it has one real
+  project. Menu links `/works#enterprise` and `/works#students` pick the tab.
+- **Navbar**: the section label (About Us, Services, Works, Contact Us) opens
+  its own page; the arrow opens the dropdown (hover for mouse, tap/click/Enter
+  otherwise; Esc or an outside click closes it).
+- **Scroll-hover on touch screens** (`lib/scrollHover.jsx`): there is no hover on
+  phones, so the card crossing the middle of the screen gets the same look as
+  `:hover`. Use `inview:` / `group-inview:` next to any `hover:` / `group-hover:`
+  utility to opt a card in.
+
 ## Setup
 
 ```bash
@@ -78,7 +100,7 @@ npm run dev
 Real company content (press, projects, certifications, team, contact, socials)
 lives in **`src/data/siteContent.js`** — edit text there and pages update.
 Photos and logos are in `public/images/{press,projects,certifications}/`.
-`components/ImageSlider.jsx` is the shared swipe/arrow/keyboard slider used on
+`components/ImageCarousel.jsx` is the shared auto-scrolling carousel used on
 `/press` and `/projects`. All text is rendered as HTML (never baked into
 images) for SEO; organisation details are also in `index.html` as JSON-LD.
 

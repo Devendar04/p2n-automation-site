@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import ScrollHover from "./lib/scrollHover";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
@@ -36,6 +37,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToHash />
+      <ScrollHover />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />

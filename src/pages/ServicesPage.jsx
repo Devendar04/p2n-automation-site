@@ -94,25 +94,25 @@ const SERVICES = [
 function ServiceCard({ service }) {
   const { number, icon: Icon, title, scope, deliverables, stack } = service;
   return (
-    <div className="group relative border-2 border-zincline bg-void p-7 flex flex-col transition-colors duration-200 hover:bg-acid">
+    <div className="group relative border-2 border-zincline bg-void p-7 flex flex-col transition-colors duration-200 hover:bg-acid inview:bg-acid">
       <div className="flex items-start justify-between mb-6">
-        <span className="font-display font-semibold text-4xl text-offwhite/20 group-hover:text-void/30 transition-colors">
+        <span className="font-display font-semibold text-4xl text-offwhite/20 group-hover:text-void/30 group-inview:text-void/30 transition-colors">
           {number}
         </span>
-        <Icon size={26} className="text-acid group-hover:text-void transition-colors" strokeWidth={1.5} />
+        <Icon size={26} className="text-acid group-hover:text-void group-inview:text-void transition-colors" strokeWidth={1.5} />
       </div>
 
-      <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void text-lg leading-snug mb-4 transition-colors">
+      <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void group-inview:text-void text-lg leading-snug mb-4 transition-colors">
         {title}
       </h3>
 
-      <ul className="text-sm text-offwhite/70 group-hover:text-void/80 leading-relaxed normal-case space-y-1.5 mb-5 list-disc list-inside transition-colors">
+      <ul className="text-sm text-offwhite/70 group-hover:text-void/80 group-inview:text-void/80 leading-relaxed normal-case space-y-1.5 mb-5 list-disc list-inside transition-colors">
         {scope.map((s) => (
           <li key={s}>{s}</li>
         ))}
       </ul>
 
-      <p className="text-xs uppercase font-semibold text-offwhite/65 group-hover:text-void/60 mb-5 transition-colors">
+      <p className="text-xs uppercase font-semibold text-offwhite/65 group-hover:text-void/60 group-inview:text-void/60 mb-5 transition-colors">
         Deliverables: <span className="normal-case font-normal">{deliverables}</span>
       </p>
 
@@ -130,10 +130,10 @@ function ServiceCard({ service }) {
 
       <Link
         to="/join"
-        className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold uppercase text-acid group-hover:text-void w-fit transition-colors"
+        className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold uppercase text-acid group-hover:text-void group-inview:text-void w-fit transition-colors"
       >
         Request Proposal
-        <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-inview:translate-x-0.5 group-hover:-translate-y-0.5 group-inview:-translate-y-0.5" />
       </Link>
     </div>
   );
@@ -173,16 +173,16 @@ export default function ServicesPage() {
               <Link
                 key={svc.slug}
                 to={`/services/${svc.slug}`}
-                className="group bg-void p-8 flex flex-col gap-4 hover:bg-acid transition-colors duration-200"
+                className="group bg-void p-8 flex flex-col gap-4 hover:bg-acid inview:bg-acid transition-colors duration-200"
               >
                 <div className="flex items-start justify-between">
-                  <CoreIcon size={30} strokeWidth={1.5} className="text-acid group-hover:text-void transition-colors" aria-hidden="true" />
-                  <ArrowUpRight size={20} className="text-offwhite/40 group-hover:text-void transition-colors" aria-hidden="true" />
+                  <CoreIcon size={30} strokeWidth={1.5} className="text-acid group-hover:text-void group-inview:text-void transition-colors" aria-hidden="true" />
+                  <ArrowUpRight size={20} className="text-offwhite/40 group-hover:text-void group-inview:text-void transition-colors" aria-hidden="true" />
                 </div>
-                <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void text-xl transition-colors">
+                <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void group-inview:text-void text-xl transition-colors">
                   {svc.title}
                 </h3>
-                <p className="text-sm text-offwhite/70 group-hover:text-void/85 leading-relaxed normal-case transition-colors">
+                <p className="text-sm text-offwhite/70 group-hover:text-void/85 group-inview:text-void/85 leading-relaxed normal-case transition-colors">
                   {svc.tagline}
                 </p>
               </Link>

@@ -172,15 +172,15 @@ export default function ServiceDetail() {
                   {service.capabilities.map((c, i) => (
                     <div
                       key={c.title}
-                      className="group p-7 bg-void hover:bg-acid transition-colors duration-200"
+                      className="group p-7 bg-void hover:bg-acid inview:bg-acid transition-colors duration-200"
                     >
-                      <span className="font-display font-semibold text-3xl text-offwhite/20 group-hover:text-void/30 transition-colors">
+                      <span className="font-display font-semibold text-3xl text-offwhite/20 group-hover:text-void/30 group-inview:text-void/30 transition-colors">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="mt-4 mb-2 font-display font-semibold uppercase text-offwhite group-hover:text-void text-lg leading-snug transition-colors">
+                      <h3 className="mt-4 mb-2 font-display font-semibold uppercase text-offwhite group-hover:text-void group-inview:text-void text-lg leading-snug transition-colors">
                         {c.title}
                       </h3>
-                      <p className="text-sm text-offwhite/70 group-hover:text-void/85 leading-relaxed normal-case transition-colors">
+                      <p className="text-sm text-offwhite/70 group-hover:text-void/85 group-inview:text-void/85 leading-relaxed normal-case transition-colors">
                         {c.description}
                       </p>
                     </div>
@@ -218,7 +218,7 @@ export default function ServiceDetail() {
                     <Link
                       key={p.id}
                       to={`/projects#${p.id}`}
-                      className="group border-2 border-zincline bg-void flex flex-col transition-shadow hover:shadow-[6px_6px_0px_0px_#017AFB]"
+                      className="group border-2 border-zincline bg-void flex flex-col transition-shadow hover:shadow-[6px_6px_0px_0px_#017AFB] inview:shadow-[6px_6px_0px_0px_#017AFB]"
                     >
                       <div className="aspect-[4/3] overflow-hidden bg-void relative">
                         <div

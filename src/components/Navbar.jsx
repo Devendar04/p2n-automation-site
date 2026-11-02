@@ -7,6 +7,7 @@ const NAV_STRUCTURE = [
   { label: "Home", to: "/" },
   {
     label: "About Us",
+    to: "/about",
     items: [
       { label: "Press & Media", to: "/press" },
       { label: "Certificates", to: "/certificates" },
@@ -16,6 +17,7 @@ const NAV_STRUCTURE = [
   },
   {
     label: "Services",
+    to: "/services",
     items: [
       { label: "Software Engineering", to: "/services/software" },
       { label: "Cloud Architecture", to: "/services/cloud" },
@@ -26,6 +28,7 @@ const NAV_STRUCTURE = [
   { label: "Vision", to: "/about#vision" },
   {
     label: "Works",
+    to: "/works",
     items: [
       { label: "Enterprise Projects", to: "/works#enterprise" },
       { label: "Student Capstones", to: "/works#students" },
@@ -33,6 +36,7 @@ const NAV_STRUCTURE = [
   },
   {
     label: "Contact Us",
+    to: "/careers",
     items: [
       { label: "Careers", to: "/careers" },
       { label: "Partners", to: "/partners" },
@@ -43,43 +47,78 @@ const NAV_STRUCTURE = [
 
 function DesktopDropdown({ item }) {
   const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
   const closeTimer = useRef(null);
+  const lastPointer = useRef("mouse");
 
-  const handleEnter = () => {
+  // hover only opens the menu for a real mouse; taps/clicks use the arrow button
+  const handleEnter = (e) => {
+    if (e.pointerType && e.pointerType !== "mouse") return;
     clearTimeout(closeTimer.current);
     setOpen(true);
   };
-  const handleLeave = () => {
+  const handleLeave = (e) => {
+    if (e.pointerType && e.pointerType !== "mouse") return;
     closeTimer.current = setTimeout(() => setOpen(false), 100);
   };
+  const handleArrow = (e) => {
+    const keyboard = e.detail === 0;
+    // a mouse click while hovering should keep the menu open, not flip it shut
+    if (!keyboard && lastPointer.current === "mouse") setOpen(true);
+    else setOpen((o) => !o);
+  };
+
+  // close on outside click / tap and on Escape
+  useEffect(() => {
+    if (!open) return undefined;
+    const onDown = (e) => {
+      if (!wrapRef.current?.contains(e.target)) setOpen(false);
+    };
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const linkClass =
+    "text-sm font-semibold uppercase tracking-wide text-offwhite/80 hover:text-acid transition-colors";
 
   if (!item.items) {
     return (
-      <Link
-        to={item.to}
-        className="text-sm font-semibold uppercase tracking-wide text-offwhite/80 hover:text-acid transition-colors px-3 py-2"
-      >
+      <Link to={item.to} className={`${linkClass} px-3 py-2`}>
         {item.label}
       </Link>
     );
   }
 
   return (
-    <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <button
-        className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-offwhite/80 hover:text-acid transition-colors px-3 py-2"
-        aria-expanded={open}
-      >
+    <div ref={wrapRef} className="relative flex items-center" onPointerEnter={handleEnter} onPointerLeave={handleLeave}>
+      {/* the label goes to the section's own page … */}
+      <Link to={item.to} onClick={() => setOpen(false)} className={`${linkClass} pl-3 pr-1 py-2`}>
         {item.label}
+      </Link>
+      {/* … and the arrow opens the menu (works for touch and keyboard too) */}
+      <button
+        type="button"
+        onPointerDown={(e) => { lastPointer.current = e.pointerType; }}
+        onClick={handleArrow}
+        aria-expanded={open}
+        aria-label={`${item.label} menu`}
+        className="py-2 pr-2 pl-0.5 text-offwhite/80 hover:text-acid transition-colors"
+      >
         <ChevronDown size={14} className={`transition-transform duration-150 ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="absolute left-0 top-full pt-2 min-w-[210px]">
+        <div className="absolute left-0 top-full pt-2 min-w-[210px] z-50">
           <div className="border-2 border-zincline bg-void">
             {item.items.map((sub) => (
               <Link
                 key={sub.label}
                 to={sub.to}
+                onClick={() => setOpen(false)}
                 className="block px-4 py-3 text-sm text-offwhite/75 hover:text-void hover:bg-acid transition-colors border-b border-zincline last:border-b-0"
               >
                 {sub.label}
@@ -119,6 +158,11 @@ function MobileAccordionItem({ item, onNavigate }) {
       </button>
       {open && (
         <div className="pb-3 pl-3 flex flex-col gap-1">
+          {item.to && (
+            <Link to={item.to} onClick={onNavigate} className="py-2.5 text-sm font-semibold uppercase text-acid">
+              {item.label} overview
+            </Link>
+          )}
           {item.items.map((sub) => (
             <Link key={sub.label} to={sub.to} onClick={onNavigate} className="py-2.5 text-sm text-offwhite/65">
               {sub.label}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { CONTACT, SOCIAL_LINKS } from "../data/siteContent";
+import PBadge from "./PBadge";
 
 const QUICK_LINKS = [
   { label: "Home", to: "/" },
@@ -109,7 +110,10 @@ export default function Footer() {
 
       <div className="border-t-2 border-zincline">
         <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-offwhite/65">
-          <span>© {new Date().getFullYear()} P2N Automation. All rights reserved.</span>
+          <div className="flex items-center gap-3">
+            <PBadge className="h-10 w-auto shrink-0 text-offwhite" />
+            <span>© {new Date().getFullYear()} P2N Automation. All rights reserved.</span>
+          </div>
           <div className="flex gap-5">
             <Link to="/privacy" className="hover:text-offwhite/70">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-offwhite/70">Terms of Service</Link>

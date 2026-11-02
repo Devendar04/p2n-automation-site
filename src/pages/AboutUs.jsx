@@ -135,12 +135,12 @@ export default function AboutUs() {
             <ul className="flex flex-col gap-3">
               {PRESS.map((p) => (
                 <li key={p.id}>
-                  <Link to={`/press#${p.id}`} className="group flex items-start justify-between gap-3 border-2 border-zincline px-4 py-3 hover:border-acid transition-colors">
+                  <Link to={`/press#${p.id}`} className="group flex items-start justify-between gap-3 border-2 border-zincline px-4 py-3 hover:border-acid inview:border-acid transition-colors">
                     <div>
                       <span className="text-xs font-semibold uppercase text-acid">{p.event}</span>
                       <p className="text-sm text-offwhite/70 mt-1 leading-snug normal-case">{p.heading}</p>
                     </div>
-                    <ExternalLink size={14} className="text-offwhite/65 shrink-0 mt-1 group-hover:text-acid" />
+                    <ExternalLink size={14} className="text-offwhite/65 shrink-0 mt-1 group-hover:text-acid group-inview:text-acid" />
                   </Link>
                 </li>
               ))}

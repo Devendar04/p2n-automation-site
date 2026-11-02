@@ -110,7 +110,7 @@ export default function Home() {
             </Link>
             <Link
               to="/contact#internship"
-              className="inline-flex items-center gap-2 font-hand text-graphite bg-postit border-2 border-graphite px-6 py-3.5 shadow-hard-sm rotate-1 hover:rotate-0 transition-transform"
+              className="inline-flex items-center gap-2 font-hand text-graphite bg-postit border-2 border-graphite px-6 py-3.5 shadow-hard-sm rotate-1 hover:rotate-0 inview:rotate-0 transition-transform"
             >
               Apply for Internships
             </Link>
@@ -133,13 +133,13 @@ export default function Home() {
               to={`/services/${slug}`}
               className={`group relative p-7 border-zincline ${
                 i !== SERVICES.length - 1 ? "sm:border-r-2" : ""
-              } ${i % 2 === 0 ? "border-b-2 sm:border-b-0" : "border-b-2 lg:border-b-0"} bg-void hover:bg-acid transition-colors duration-200`}
+              } ${i % 2 === 0 ? "border-b-2 sm:border-b-0" : "border-b-2 lg:border-b-0"} bg-void hover:bg-acid inview:bg-acid transition-colors duration-200`}
             >
-              <Icon size={28} className="text-acid group-hover:text-void mb-6 transition-colors" strokeWidth={1.5} />
-              <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void text-lg mb-2 transition-colors">
+              <Icon size={28} className="text-acid group-hover:text-void group-inview:text-void mb-6 transition-colors" strokeWidth={1.5} />
+              <h3 className="font-display font-semibold uppercase text-offwhite group-hover:text-void group-inview:text-void text-lg mb-2 transition-colors">
                 {title}
               </h3>
-              <p className="text-sm text-offwhite/70 group-hover:text-void/80 leading-relaxed normal-case transition-colors">
+              <p className="text-sm text-offwhite/70 group-hover:text-void/80 group-inview:text-void/80 leading-relaxed normal-case transition-colors">
                 {description}
               </p>
             </Link>
@@ -184,7 +184,7 @@ export default function Home() {
           <div className="mt-14">
             <Link
               to="/contact#internship"
-              className="inline-flex items-center gap-2 bg-[#FF4D4D] text-white font-hand text-lg px-6 py-3 border-2 border-[#111111] shadow-[4px_4px_0px_0px_#111111] -rotate-1 hover:rotate-0 hover:-translate-y-0.5 transition-transform"
+              className="inline-flex items-center gap-2 bg-[#FF4D4D] text-white font-hand text-lg px-6 py-3 border-2 border-[#111111] shadow-[4px_4px_0px_0px_#111111] -rotate-1 hover:rotate-0 inview:rotate-0 hover:-translate-y-0.5 inview:-translate-y-0.5 transition-transform"
               style={{
                 borderRadius: "255px 15px 225px 15px / 15px 225px 15px 255px",
               }}

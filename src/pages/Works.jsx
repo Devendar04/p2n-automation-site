@@ -1,10 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import { Github, ExternalLink, Award, Star, Loader2 } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Github, ExternalLink, ArrowUpRight, Award, Star, Loader2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import FloatingActions from "../components/FloatingActions";
 import QuickContactModal from "../components/QuickContactModal";
-import { supabase } from "../lib/supabaseClient";
+import { useWorks } from "../lib/content";
+import { usePageMeta } from "../lib/pageMeta";
 
 const CATEGORIES_BY_VIEW = {
   client: ["All", "Software", "Hardware/IoT", "AI & Automation"],
@@ -13,8 +15,15 @@ const CATEGORIES_BY_VIEW = {
 
 function EnterpriseCard({ project }) {
   return (
-    <div className="border-2 border-zincline bg-void flex flex-col">
-      {project.thumbnail_url && <img src={project.thumbnail_url} alt="" className="w-full h-40 object-cover" />}
+    <div className="border-2 border-zincline bg-void flex flex-col transition-shadow duration-200 hover:shadow-[6px_6px_0px_0px_#017AFB] inview:shadow-[6px_6px_0px_0px_#017AFB]">
+      {project.thumbnail_url && (
+        <img
+          src={project.thumbnail_url}
+          alt={project.thumbnail_alt || ""}
+          loading="lazy"
+          className="w-full aspect-[4/3] object-cover border-b-2 border-zincline"
+        />
+      )}
       <div className="p-6 flex flex-col flex-1">
         <span className="text-xs font-semibold uppercase text-acid border border-acid px-2 py-1 w-fit mb-3">
           {project.category}
@@ -39,16 +48,24 @@ function EnterpriseCard({ project }) {
             "{project.testimonial_quote}"
           </p>
         )}
-        {project.case_study_url && (
-          <a
-            href={project.case_study_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-auto pt-4 border-t-2 border-zincline text-sm font-semibold uppercase text-acid hover:text-offwhite flex items-center gap-1.5 w-fit"
-          >
-            View Case Study <ExternalLink size={14} />
-          </a>
-        )}
+        {project.case_study_url &&
+          (project.case_study_url.startsWith("/") ? (
+            <Link
+              to={project.case_study_url}
+              className="mt-auto pt-4 border-t-2 border-zincline text-sm font-semibold uppercase text-acid hover:text-offwhite flex items-center gap-1.5 w-fit"
+            >
+              View project <ArrowUpRight size={14} />
+            </Link>
+          ) : (
+            <a
+              href={project.case_study_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-auto pt-4 border-t-2 border-zincline text-sm font-semibold uppercase text-acid hover:text-offwhite flex items-center gap-1.5 w-fit"
+            >
+              View Case Study <ExternalLink size={14} />
+            </a>
+          ))}
       </div>
     </div>
   );
@@ -56,7 +73,7 @@ function EnterpriseCard({ project }) {
 
 function StudentCard({ project }) {
   return (
-    <div className="relative wobble-2 bg-paper border-2 border-graphite shadow-hard p-6 -rotate-1 hover:rotate-0 transition-transform">
+    <div className="relative wobble-2 bg-paper border-2 border-graphite shadow-hard p-6 -rotate-1 hover:rotate-0 inview:rotate-0 transition-transform">
       {project.hiring_badge && (
         <span className="absolute -top-3 -right-3 bg-correction text-white text-[10px] font-hand px-2 py-1 border-2 border-graphite rotate-6 flex items-center gap-1">
           <Award size={10} /> hired!
@@ -115,20 +132,23 @@ function TestimonialStrip({ testimonials }) {
 export default function Works() {
   const [viewType, setViewType] = useState("client");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { projects, loading } = useWorks();
   const [schedulerOpen, setSchedulerOpen] = useState(false);
+  const { hash } = useLocation();
+  usePageMeta("Works & Showcase", "Enterprise projects and student capstones from P2N Automation.");
 
+  // the navbar links (/works#enterprise, /works#students) pick the tab
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const { data } = await supabase.from("projects").select("*").order("created_at", { ascending: false });
-      setProjects(data || []);
-      setLoading(false);
-    })();
-  }, []);
+    if (hash === "#students") setViewType("student");
+    else if (hash === "#enterprise") setViewType("client");
+  }, [hash]);
 
   useEffect(() => setActiveCategory("All"), [viewType]);
+
+  const categories = useMemo(() => {
+    const present = new Set(projects.filter((p) => p.view_type === viewType).map((p) => p.category));
+    return CATEGORIES_BY_VIEW[viewType].filter((c) => c === "All" || present.has(c));
+  }, [projects, viewType]);
 
   const filtered = useMemo(() => {
     return projects.filter((p) => {
@@ -158,6 +178,7 @@ export default function Works() {
         <div className="inline-flex border-2 border-zincline mb-8">
           <button
             id="enterprise"
+            style={{ scrollMarginTop: "7rem" }}
             onClick={() => setViewType("client")}
             className={`px-5 py-2.5 text-sm font-semibold uppercase transition-colors ${
               viewType === "client" ? "bg-acid text-void" : "text-offwhite/60 hover:text-offwhite"
@@ -167,6 +188,7 @@ export default function Works() {
           </button>
           <button
             id="students"
+            style={{ scrollMarginTop: "7rem" }}
             onClick={() => setViewType("student")}
             className={`px-5 py-2.5 text-sm font-semibold uppercase transition-colors border-l-2 border-zincline ${
               viewType === "student" ? "bg-postit text-graphite" : "text-offwhite/60 hover:text-offwhite"
@@ -177,7 +199,7 @@ export default function Works() {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
-          {CATEGORIES_BY_VIEW[viewType].map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -213,12 +235,14 @@ export default function Works() {
         )}
       </section>
 
-      <section className="container-page py-16 border-t-2 border-zincline">
-        <h2 className="kinetic-headline text-2xl sm:text-4xl text-offwhite mb-10">
-          What Clients &amp; Students Say
-        </h2>
-        <TestimonialStrip testimonials={testimonials} />
-      </section>
+      {testimonials.length > 0 && (
+        <section className="container-page py-16 border-t-2 border-zincline">
+          <h2 className="kinetic-headline text-2xl sm:text-4xl text-offwhite mb-10">
+            What Clients &amp; Students Say
+          </h2>
+          <TestimonialStrip testimonials={testimonials} />
+        </section>
+      )}
 
       <Footer />
       <FloatingActions onOpenScheduler={() => setSchedulerOpen(true)} />
