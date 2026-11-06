@@ -22,7 +22,7 @@ function CredCard({ item, index }) {
       exit={{ opacity: 0, y: -10 }}
       transition={{ delay: index * 0.05, duration: 0.35 }}
       whileHover={{ rotate: 1, scale: 1.03 }}
-      className="relative wobble-1 bg-[#F7FAFF] text-graphite border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] px-6 py-7"
+      className="relative wobble-1 bg-[#F7FAFF] text-graphite border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] hover:shadow-[9px_9px_0px_0px_#017AFB] transition-shadow duration-200 px-6 py-7"
     >
       <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-postit/80 border border-graphite/20 -rotate-2 shadow-sm" />
 
@@ -55,7 +55,7 @@ function LogoCredCard({ item, index }) {
       exit={{ opacity: 0, y: -10 }}
       transition={{ delay: index * 0.05, duration: 0.35 }}
       whileHover={{ rotate: 1, scale: 1.03 }}
-      className="relative wobble-1 bg-[#F7FAFF] text-graphite border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] px-6 py-7 flex flex-col items-center text-center"
+      className="relative wobble-1 bg-[#F7FAFF] text-graphite border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] hover:shadow-[9px_9px_0px_0px_#017AFB] transition-shadow duration-200 px-6 py-7 flex flex-col items-center text-center"
     >
       <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-postit/80 border border-graphite/20 -rotate-2 shadow-sm" />
 

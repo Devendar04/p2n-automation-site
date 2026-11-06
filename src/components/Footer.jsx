@@ -17,7 +17,7 @@ const SERVICES = [
   { label: "Cloud Architecture", to: "/services/cloud" },
   { label: "Hardware / IoT", to: "/services/hardware" },
   { label: "Network Infrastructure", to: "/services/network" },
-  { label: "Internships", to: "/contact#internship" },
+  { label: "Internships", to: "/careers#internship" },
 ];
 
 const SOCIALS = [

@@ -74,10 +74,15 @@ theme before first paint so there is no flash. The logo has a dark variant
 - **Navbar**: the section label (About Us, Services, Works, Contact Us) opens
   its own page; the arrow opens the dropdown (hover for mouse, tap/click/Enter
   otherwise; Esc or an outside click closes it).
-- **Scroll-hover on touch screens** (`lib/scrollHover.jsx`): there is no hover on
-  phones, so the card crossing the middle of the screen gets the same look as
-  `:hover`. Use `inview:` / `group-inview:` next to any `hover:` / `group-hover:`
-  utility to opt a card in.
+- **Scroll-hover on phones, site-wide** (`lib/scrollHover.jsx`): touch screens have
+  no hover, so on phones/tablets (and any window narrower than 768px) whatever is
+  crossing the middle of the screen behaves as if hovered, then releases as you
+  scroll on. It is automatic: at start-up it reads the site's own CSS, mirrors
+  every `:hover` rule (Tailwind `hover:*` / `group-hover:*`, responsive and dark
+  variants, custom CSS) onto a `data-inview="true"` state, and watches every element
+  those rules apply to. Any new `hover:` style you write works on phones with no
+  extra code. Mouse users on wider windows keep normal hover. Colour changes ease
+  in via a small rule at the end of `index.css`.
 
 ## Setup
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ScrollHover from "./lib/scrollHover";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import BlogAndFAQ from "./pages/BlogAndFAQ";
@@ -33,6 +33,12 @@ function ScrollToHash() {
   return null;
 }
 
+/** /contact used to re-render Home; send it (and its #hash) to the real forms. */
+function ContactRedirect() {
+  const { hash } = useLocation();
+  return <Navigate to={`/careers${hash}`} replace />;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -54,9 +60,7 @@ export default function App() {
         <Route path="/admin" element={<AdminPortal />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
-        {/* /contact reuses Home as a placeholder — build ContactPage.jsx
-            the same way as the others and swap it in here once ready. */}
-        <Route path="/contact" element={<Home />} />
+        <Route path="/contact" element={<ContactRedirect />} />
       </Routes>
     </BrowserRouter>
   );

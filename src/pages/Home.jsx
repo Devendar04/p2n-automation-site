@@ -103,13 +103,13 @@ export default function Home() {
 
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
-              to="/services"
+              to="/careers#hire"
               className="inline-flex items-center gap-2 bg-acid text-void text-sm font-semibold uppercase px-6 py-3.5 border-2 border-acid hover:bg-void hover:text-acid transition-colors"
             >
               Hire Us for Projects <ArrowUpRight size={16} />
             </Link>
             <Link
-              to="/contact#internship"
+              to="/careers#internship"
               className="inline-flex items-center gap-2 font-hand text-graphite bg-postit border-2 border-graphite px-6 py-3.5 shadow-hard-sm rotate-1 hover:rotate-0 inview:rotate-0 transition-transform"
             >
               Apply for Internships
@@ -183,7 +183,7 @@ export default function Home() {
 
           <div className="mt-14">
             <Link
-              to="/contact#internship"
+              to="/careers#internship"
               className="inline-flex items-center gap-2 bg-[#FF4D4D] text-white font-hand text-lg px-6 py-3 border-2 border-[#111111] shadow-[4px_4px_0px_0px_#111111] -rotate-1 hover:rotate-0 inview:rotate-0 hover:-translate-y-0.5 inview:-translate-y-0.5 transition-transform"
               style={{
                 borderRadius: "255px 15px 225px 15px / 15px 225px 15px 255px",

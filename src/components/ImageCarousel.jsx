@@ -26,7 +26,7 @@ export default function ImageCarousel({
   variant = "kinetic",
   label = "Photos",
   eager = false,
-  interval = 3000,
+  interval = 3500,
   className = "",
 }) {
   const wrapRef = useRef(null);
@@ -36,35 +36,24 @@ export default function ImageCarousel({
   const multiple = count > 1;
 
   // reasons autoplay is currently paused
-  const hold = useRef({
-    hover: false,
-    focus: false,
-    touch: false,
-    inView: false,
-  });
+  const hold = useRef({ hover: false, focus: false, touch: false, inView: false });
   const touchTimer = useRef(0);
 
-  const reducedMotion = () =>
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const goTo = useCallback(
     (i) => {
       const el = trackRef.current;
       if (!el) return;
       const next = ((i % count) + count) % count;
-      el.scrollTo({
-        left: next * el.clientWidth,
-        behavior: reducedMotion() ? "auto" : "smooth",
-      });
+      el.scrollTo({ left: next * el.clientWidth, behavior: reducedMotion() ? "auto" : "smooth" });
     },
-    [count],
+    [count]
   );
 
   const current = () => {
     const el = trackRef.current;
-    return el && el.clientWidth
-      ? Math.round(el.scrollLeft / el.clientWidth)
-      : 0;
+    return el && el.clientWidth ? Math.round(el.scrollLeft / el.clientWidth) : 0;
   };
 
   // ---- autoplay ----
@@ -75,7 +64,7 @@ export default function ImageCarousel({
       ([entry]) => {
         hold.current.inView = entry.isIntersecting;
       },
-      { threshold: 0.35 },
+      { threshold: 0.35 }
     );
     if (wrapRef.current) io.observe(wrapRef.current);
 
@@ -84,8 +73,7 @@ export default function ImageCarousel({
     const start = setTimeout(() => {
       timer = setInterval(() => {
         const h = hold.current;
-        if (h.hover || h.focus || h.touch || !h.inView || document.hidden)
-          return;
+        if (h.hover || h.focus || h.touch || !h.inView || document.hidden) return;
         goTo(current() + 1);
       }, interval);
     }, Math.random() * 1500);
@@ -155,7 +143,7 @@ export default function ImageCarousel({
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="absolute inset-0 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory no-scrollbar"
+        className="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory no-scrollbar"
       >
         {images.map((img, i) => (
           <div
@@ -163,7 +151,7 @@ export default function ImageCarousel({
             role="group"
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${count}`}
-            className="relative shrink-0 basis-full h-full snap-center overflow-hidden"
+            className="relative shrink-0 basis-full h-full snap-center"
           >
             <div
               aria-hidden="true"

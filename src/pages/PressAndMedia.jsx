@@ -50,7 +50,7 @@ function LeadFeature({ item }) {
     <motion.article
       id={item.id}
       {...reveal}
-      className="scroll-mt-24 grid lg:grid-cols-2 border-2 border-zincline bg-void"
+      className="scroll-mt-24 grid lg:grid-cols-2 border-2 border-zincline bg-void transition-shadow duration-200 hover:shadow-[6px_6px_0px_0px_#017AFB]"
     >
       <ImageCarousel images={item.images} label={`${item.event} photos`} eager />
       <div className="p-7 sm:p-10 flex flex-col justify-center gap-5 border-t-2 lg:border-t-0 lg:border-l-2 border-zincline">
@@ -100,7 +100,7 @@ function PortraitFeature({ item }) {
     <motion.article
       id={item.id}
       {...reveal}
-      className="scroll-mt-24 grid lg:grid-cols-[1fr_minmax(0,380px)] border-2 border-zincline bg-void"
+      className="scroll-mt-24 grid lg:grid-cols-[1fr_minmax(0,380px)] border-2 border-zincline bg-void transition-shadow duration-200 hover:shadow-[6px_6px_0px_0px_#017AFB]"
     >
       <div className="p-7 sm:p-10 flex flex-col justify-center gap-5">
         <EventChip>{item.event}</EventChip>

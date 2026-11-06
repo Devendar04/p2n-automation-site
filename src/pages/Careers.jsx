@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, MapPin, Briefcase, Gauge } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -112,9 +113,12 @@ function JobCard({ job, isOpen, onToggle }) {
                 ))}
               </div>
 
-              <button className="bg-acid text-void text-sm font-semibold uppercase px-6 py-2.5 hover:bg-offwhite transition-colors">
+              <Link
+                to="/careers#job"
+                className="inline-block bg-acid text-void text-sm font-semibold uppercase px-6 py-2.5 border-2 border-acid hover:bg-void hover:text-acid transition-colors"
+              >
                 Apply for Role
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

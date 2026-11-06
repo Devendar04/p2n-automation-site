@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Handshake,
@@ -110,8 +111,12 @@ function validatePartner(f) {
   return e;
 }
 
-function PartnerForm() {
-  const [form, setForm] = useState(PARTNER_EMPTY);
+function PartnerForm({ presetType = "" }) {
+  const [form, setForm] = useState({ ...PARTNER_EMPTY, partnershipType: presetType });
+  // "Hire Us" links can arrive while this form is already open — apply the preset then too
+  useEffect(() => {
+    if (presetType) setForm((f) => ({ ...f, partnershipType: presetType }));
+  }, [presetType]);
   const [errors, setErrors] = useState({});
   const { isSubmitting, error, succeeded, submit, reset } = useFormSubmit(
     "partnership_inquiries",
@@ -439,8 +444,22 @@ const TAB_TITLES = {
 
 export default function CareersPage() {
   const [activeTab, setActiveTab] = useState("partner");
+  const [hiring, setHiring] = useState(false); // opened from a "Hire Us" button
   const [schedulerOpen, setSchedulerOpen] = useState(false);
   const ActiveForm = TAB_FORMS[activeTab];
+  const { hash } = useLocation();
+
+  // Links like /careers#internship, #job, #partner and #hire choose the tab
+  useEffect(() => {
+    const key = hash.replace("#", "");
+    if (key === "hire") {
+      setActiveTab("partner");
+      setHiring(true);
+    } else if (TAB_FORMS[key]) {
+      setActiveTab(key);
+      setHiring(false);
+    }
+  }, [hash]);
 
   return (
     <div className="min-h-screen bg-void">
@@ -462,11 +481,18 @@ export default function CareersPage() {
 
       {/* TAB FORMS */}
       <section className="container-page py-16 sm:py-20">
+        {/* scroll targets for #partner, #internship, #job and #hire links */}
+        {["partner", "internship", "job", "hire"].map((id) => (
+          <span key={id} id={id} className="block h-0 scroll-mt-28" aria-hidden="true" />
+        ))}
         <div className="flex flex-wrap gap-2 mb-10">
           {TABS.map(({ key, label, icon: Icon }) => (
             <button
               key={key}
-              onClick={() => setActiveTab(key)}
+              onClick={() => {
+                setActiveTab(key);
+                setHiring(false);
+              }}
               className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold uppercase border-2 transition-colors ${
                 activeTab === key
                   ? "bg-acid text-void border-acid"
@@ -489,9 +515,9 @@ export default function CareersPage() {
               className="relative wobble-1 bg-[#F7FAFF] border-[3px] border-graphite shadow-[5px_5px_0px_0px_#111111] px-6 py-8 sm:px-9 sm:py-10"
             >
               <h2 className="font-hand text-2xl sm:text-3xl text-graphite mb-6">
-                {TAB_TITLES[activeTab]}
+                {hiring && activeTab === "partner" ? "Hire Us for a Project" : TAB_TITLES[activeTab]}
               </h2>
-              <ActiveForm />
+              <ActiveForm {...(activeTab === "partner" && hiring ? { presetType: "Corporate Client" } : {})} />
             </motion.div>
           </AnimatePresence>
         </div>

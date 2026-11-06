@@ -40,7 +40,7 @@ const NAV_STRUCTURE = [
     items: [
       { label: "Careers", to: "/careers" },
       { label: "Partners", to: "/partners" },
-      { label: "Internship", to: "/contact#internship" },
+      { label: "Internship", to: "/careers#internship" },
     ],
   },
 ];
@@ -204,13 +204,13 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
           <Link
-            to="/contact#internship"
+            to="/careers#internship"
             className="text-xs font-hand text-graphite bg-postit border-2 border-graphite px-4 py-2 -rotate-2 hover:rotate-0 transition-transform"
           >
             Apply for Internships
           </Link>
           <Link
-            to="/services"
+            to="/careers#hire"
             className="text-sm font-semibold uppercase text-void bg-acid px-4 py-2 border-2 border-acid hover:bg-void hover:text-acid transition-colors"
           >
             Hire Us
@@ -247,14 +247,14 @@ export default function Navbar() {
           ))}
           <div className="flex flex-col gap-3 mt-6">
             <Link
-              to="/contact#internship"
+              to="/careers#internship"
               onClick={() => setDrawerOpen(false)}
               className="text-center text-sm font-hand text-graphite bg-postit border-2 border-graphite px-4 py-3"
             >
               Apply for Internships
             </Link>
             <Link
-              to="/services"
+              to="/careers#hire"
               onClick={() => setDrawerOpen(false)}
               className="text-center text-sm font-semibold uppercase text-void bg-acid px-4 py-3 border-2 border-acid"
             >

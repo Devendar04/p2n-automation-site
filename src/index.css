@@ -86,3 +86,14 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Scroll-hover on phones (see src/lib/scrollHover.jsx): ease colour changes for elements
+   that don't already declare a transition. Transform is left alone on purpose, so it
+   never fights framer-motion. */
+@media (hover: none), (max-width: 767px) {
+  [data-inview]:not([class*="transition"]) {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+      box-shadow 0.25s ease, opacity 0.25s ease;
+  }
+}

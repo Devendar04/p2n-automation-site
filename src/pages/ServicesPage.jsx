@@ -129,7 +129,7 @@ function ServiceCard({ service }) {
       </div>
 
       <Link
-        to="/join"
+        to="/careers#hire"
         className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold uppercase text-acid group-hover:text-void group-inview:text-void w-fit transition-colors"
       >
         Request Proposal
